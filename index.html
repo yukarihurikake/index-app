@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+  <script>
+    function initLIFF() {
+      liff.init({ liffId: "2006803158-rMJNGV8X" }).then(() => {
+        if (liff.isLoggedIn()) {
+          liff.getProfile().then(profile => {
+            fetch("https://script.google.com/macros/s/AKfycbzFcaKPPXs-tbKmhp-8XaVgr8KHJmiwM3J6F1jqxLgmzJrKmxsABDWfW3uuZ7jBc-Gw2w/exec", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ userId: profile.userId, name: profile.displayName })
+            });
+          });
+        } else {
+          liff.login();
+        }
+      });
+    }
+  </script>
+</head>
+<body onload="initLIFF()">
+  <h1>LIFFアプリ</h1>
+</body>
+</html>
